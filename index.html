@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Recompete tracks government cleaning contracts across the DMV — who holds them, what they pay, and when they&#x27;re up for rebid. Intelligence for custodial contractors.">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Recompete — government cleaning contract intelligence">
+<meta property="og:description" content="Recompete tracks government cleaning contracts across the DMV — who holds them, what they pay, and when they&#x27;re up for rebid. Intelligence for custodial contractors.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M8 0l8 8-8 8-8-8z' fill='%230E5C6B'/><path d='M8 4l4 4-4 4-4-4z' fill='%23E7E9ED'/></svg>">
+<title>Recompete — government cleaning contract intelligence (DMV)</title>
+<style>
+  :root{
+    --paper:#E7E9ED; --surface:#FBFBFC; --ink:#0C1116; --muted:#5A626C; --faint:#8A919B;
+    --line:#D3D7DD; --hair:#E0E3E8;
+    --accent-hi:#0E5C6B; --accent-press:#0A3F4A;
+    --money:#0B6B43; --alert:#BE3B23; --alert-soft:#F3DAD3;
+    /* signature dark panel — fixed across themes */
+    --panel:#0B1015; --panel-2:#0E151B; --panel-ink:#E9EEF2; --panel-mut:#7E8894;
+    --panel-line:#1E2830; --panel-live:#37D3B5; --panel-alert:#FF7B5E;
+    --sans:-apple-system,"Segoe UI",system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+    --r:4px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --paper:#0A0E12; --surface:#11171D; --ink:#E9ECEF; --muted:#98A0AA; --faint:#6C747E;
+      --line:#222A32; --hair:#1A2128; --accent-hi:#2FA7BD; --accent-press:#227E8F;
+      --money:#43C489; --alert:#F0806B; --alert-soft:#331d18; }
+  }
+  :root[data-theme="light"]{ --paper:#E7E9ED; --surface:#FBFBFC; --ink:#0C1116; --muted:#5A626C; --faint:#8A919B;
+    --line:#D3D7DD; --hair:#E0E3E8; --accent-hi:#0E5C6B; --accent-press:#0A3F4A; --money:#0B6B43;
+    --alert:#BE3B23; --alert-soft:#F3DAD3; }
+  :root[data-theme="dark"]{ --paper:#0A0E12; --surface:#11171D; --ink:#E9ECEF; --muted:#98A0AA; --faint:#6C747E;
+    --line:#222A32; --hair:#1A2128; --accent-hi:#2FA7BD; --accent-press:#227E8F; --money:#43C489;
+    --alert:#F0806B; --alert-soft:#331d18; }
+
+  *{box-sizing:border-box}
+  body{margin:0}
+  .pg{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.55;
+    -webkit-font-smoothing:antialiased}
+  .bd{max-width:1120px;margin:0 auto;padding:0 24px}
+  .grid-lines{}
+  h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.025em;text-wrap:balance;line-height:1.05}
+  a{color:inherit;text-decoration:none}
+  .kick{font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--accent-hi);
+    text-transform:uppercase;font-weight:500}
+  .kick .bar{color:var(--faint)}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* top */
+  .nav{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 90%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav .bd{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .wm{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:600;font-size:13.5px;
+    letter-spacing:.06em}
+  .glyph{width:14px;height:14px;background:var(--accent-hi);flex:none;
+    clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%,50% 0,50% 22%,22% 50%,50% 78%,78% 50%,50% 22%)}
+  .btn{font-family:var(--sans);font-weight:650;font-size:14.5px;border:0;border-radius:var(--r);
+    padding:11px 17px;background:var(--accent-hi);color:#fff;cursor:pointer;display:inline-block;
+    transition:background .15s ease,transform .06s ease;white-space:nowrap}
+  .btn:hover{background:var(--accent-press)}.btn:active{transform:translateY(1px)}
+  .btn.sm{padding:8px 13px;font-size:13.5px}
+  .btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+  .btn.line:hover{background:transparent;box-shadow:inset 0 0 0 1px var(--accent-hi);color:var(--accent-hi)}
+  .btn.onpanel{background:var(--panel-live);color:#04120e}.btn.onpanel:hover{background:#5fe0c6}
+  :focus-visible{outline:2px solid var(--accent-hi);outline-offset:2px}
+
+  /* hero */
+  .hero{padding:70px 0 20px;border-bottom:1px solid var(--line);position:relative;isolation:isolate}
+  .hero::before{content:"";position:absolute;inset:-58px 0 0 0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(to right,var(--hair) 1px,transparent 1px),linear-gradient(to bottom,var(--hair) 1px,transparent 1px);
+    background-size:38px 38px;opacity:.7;
+    -webkit-mask-image:radial-gradient(130% 90% at 22% 4%,#000 26%,transparent 72%);
+    mask-image:radial-gradient(130% 90% at 22% 4%,#000 26%,transparent 72%)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:end}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:34px}}
+  .hero h1{font-size:clamp(33px,5.6vw,58px);margin:18px 0 0}
+  .hero h1 em{font-style:normal;color:var(--alert)}
+  .lede{font-size:clamp(16.5px,2vw,19px);color:var(--muted);max-width:52ch;margin:20px 0 28px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:16px;letter-spacing:.01em}
+
+  /* signature terminal panel */
+  .term{background:var(--panel);border:1px solid var(--panel-line);border-radius:6px;overflow:hidden;
+    box-shadow:0 20px 50px -24px rgba(0,0,0,.5)}
+  .term-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;
+    border-bottom:1px solid var(--panel-line);background:var(--panel-2)}
+  .term-bar .l{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11.5px;
+    color:var(--panel-mut);letter-spacing:.04em}
+  .live{display:inline-flex;align-items:center;gap:6px;color:var(--panel-live);font-weight:600}
+  .live b{width:7px;height:7px;border-radius:50%;background:var(--panel-live);animation:blink 1.6s steps(1) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .term-body{font-family:var(--mono);font-size:12.5px;color:var(--panel-ink);padding:6px 0}
+  .feedrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:8px 14px;align-items:baseline;
+    border-bottom:1px solid color-mix(in srgb,var(--panel-line) 55%,transparent)}
+  .feedrow:last-child{border-bottom:0}
+  .feedrow .t{color:var(--panel-mut)}
+  .feedrow .m em{font-style:normal;color:#fff}
+  .feedrow .d{color:var(--panel-alert);font-weight:600;white-space:nowrap}
+  .feedrow .d.cool{color:var(--panel-live)}
+  .cursor{padding:8px 14px 12px;color:var(--panel-mut);font-family:var(--mono);font-size:12.5px}
+  .cursor .bk{display:inline-block;width:8px;height:15px;background:var(--panel-live);vertical-align:-2px;
+    margin-left:3px;animation:blink 1s steps(1) infinite}
+
+  /* stats strip */
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+  .strip .c{padding:22px 4px 22px 0}
+  .strip .c + .c{padding-left:26px;border-left:1px solid var(--hair)}
+  @media(max-width:720px){.strip{grid-template-columns:repeat(2,1fr)}
+    .strip .c:nth-child(3){border-left:0}.strip .c{padding:18px 0}
+    .strip .c:nth-child(even){padding-left:26px;border-left:1px solid var(--hair)}}
+  .strip .n{font-family:var(--mono);font-size:clamp(24px,3.5vw,32px);font-weight:600;letter-spacing:-.02em}
+  .strip .n.a{color:var(--alert)} .strip .n.m{color:var(--money)}
+  .strip .k{font-size:12.5px;color:var(--muted);margin-top:5px;max-width:22ch;line-height:1.35}
+
+  /* sections */
+  .sec{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-h{max-width:60ch;margin-bottom:26px}
+  .sec-h h2{font-size:clamp(23px,3.4vw,33px);margin:10px 0 9px}
+  .sec-h p{color:var(--muted);margin:0;font-size:16.5px}
+
+  .ledger{border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden}
+  .ledger-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 16px;
+    border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    letter-spacing:.03em}
+  .ledger-h .live b{background:var(--money)}
+  .ledger-h .live{color:var(--money)}
+  .tscroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:600px}
+  thead th{font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--faint);text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  thead th.r,td.r{text-align:right}
+  tbody td{padding:14px 16px;border-bottom:1px solid var(--hair);vertical-align:baseline}
+  tbody tr:last-child td{border-bottom:0}
+  .nm{font-weight:650;letter-spacing:-.01em}
+  .sub{color:var(--faint);font-size:12px;font-family:var(--mono);margin-top:3px}
+  .val{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .val.m{color:var(--money);font-weight:600}
+  .cd{font-family:var(--mono);font-weight:600;font-size:12.5px;padding:2px 7px;border-radius:3px;white-space:nowrap}
+  .cd.hot{color:var(--alert);background:var(--alert-soft)}
+  .cd.warm{color:var(--accent-hi);box-shadow:inset 0 0 0 1px var(--line)}
+  .blur{filter:blur(5px);user-select:none}
+  .more{text-align:center;color:var(--faint);font-family:var(--mono);font-size:12.5px;padding:15px}
+  .note{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:12px;letter-spacing:.01em}
+
+  /* why cols */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:6px;
+    background:var(--surface);overflow:hidden}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  .col{padding:26px 24px}
+  .col + .col{border-left:1px solid var(--hair)}
+  @media(max-width:760px){.col + .col{border-left:0;border-top:1px solid var(--hair)}}
+  .col h3{font-size:18.5px;margin:12px 0 8px;letter-spacing:-.02em}
+  .col p{margin:0;color:var(--muted);font-size:15px}
+
+  /* pricing band */
+  .buy{padding:60px 0;border-bottom:1px solid var(--line)}
+  .buy-card{background:var(--panel);border-radius:8px;color:var(--panel-ink);
+    display:grid;grid-template-columns:1fr .85fr;gap:40px;padding:40px;
+    box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+  @media(max-width:800px){.buy-card{grid-template-columns:1fr;gap:28px;padding:30px}}
+  .buy-card .kick{color:var(--panel-live)}
+  .amt{display:flex;align-items:baseline;gap:8px;margin:12px 0 0}
+  .amt .big{font-family:var(--mono);font-size:46px;font-weight:600;letter-spacing:-.03em}
+  .amt .per{color:var(--panel-mut);font-size:15px}
+  .buy-card h2{font-size:27px;margin:6px 0 0}
+  ul.feat{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:11px}
+  ul.feat li{position:relative;padding-left:24px;font-size:15px;color:var(--panel-ink)}
+  ul.feat li::before{content:"";position:absolute;left:0;top:7px;width:11px;height:7px;
+    border-left:2px solid var(--panel-live);border-bottom:2px solid var(--panel-live);transform:rotate(-45deg)}
+  form{display:flex;flex-direction:column;gap:11px}
+  form label{font-weight:650;font-size:14px;color:var(--panel-ink)}
+  input[type=email]{font-family:var(--sans);font-size:16px;padding:13px 14px;border-radius:var(--r);
+    border:1px solid var(--panel-line);background:#070b0f;color:var(--panel-ink);width:100%}
+  input[type=email]::placeholder{color:var(--panel-mut)}
+  .fnote{font-family:var(--mono);font-size:11px;color:var(--panel-mut);line-height:1.5}
+  .done{display:none;background:#081712;border:1px solid var(--panel-live);border-radius:6px;padding:18px;
+    color:var(--panel-ink);font-size:15px}
+  .done.show{display:block}
+
+  footer{padding:30px 0 64px;color:var(--faint);font-size:12.5px}
+  footer .bd{display:flex;flex-direction:column;gap:12px}
+  .disc{max-width:88ch;font-family:var(--mono);line-height:1.65;font-size:11.5px}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.live b,.cursor .bk{animation:none}.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+
+<div class="pg">
+  <nav class="nav"><div class="bd">
+    <div class="wm"><span class="glyph"></span> RECOMPETE<span style="color:var(--faint)">&nbsp;/ DMV</span></div>
+    <a href="#buy" class="btn sm">Get access</a>
+  </div></nav>
+
+  <div class="bd">
+    <!-- HERO -->
+    <header class="hero"><div class="hero-grid">
+      <div>
+        <div class="kick"><span class="bar">//</span> Government custodial contracts &middot; VA &middot; MD &middot; DC</div>
+        <h1>Government cleaning contracts are up for rebid <em>right now</em>. Know before the street does.</h1>
+        <p class="lede"><strong>Recompete</strong> is the intelligence desk for DMV custodial contractors. See which contracts are up for bid, who holds them today, and what the agency actually spends &mdash; so you stop missing rebids and stop bidding blind.</p>
+        <div class="cta">
+          <a href="#buy" class="btn">Get access &mdash; $49/mo</a>
+          <a href="#radar" class="btn line">See the live radar</a>
+        </div>
+        <div class="src">SOURCE: Virginia eVA procurement data + Montgomery County, MD contracts &middot; official open records</div>
+      </div>
+
+      <!-- signature: live terminal -->
+      <aside class="term" aria-label="Live rebid feed">
+        <div class="term-bar">
+          <span class="l"><span class="live"><b></b>LIVE</span> rebid_radar.feed</span>
+          <span class="l mono" id="feed-ts"></span>
+        </div>
+        <div class="term-body" id="feed"></div>
+        <div class="cursor">query: next_rebids --region=DMV<span class="bk"></span></div>
+      </aside>
+    </div></header>
+
+    <!-- STATS -->
+    <div class="strip">
+      <div class="c"><div class="n">22</div><div class="k">DMV custodial contracts on the rebid radar</div></div>
+      <div class="c"><div class="n a">7</div><div class="k">up for rebid within 120 days</div></div>
+      <div class="c"><div class="n">50</div><div class="k">Virginia agencies mapped to their incumbent</div></div>
+      <div class="c"><div class="n m">$81.8M</div><div class="k">janitorial spend mapped (2023&ndash;24)</div></div>
+    </div>
+
+    <!-- RADAR -->
+    <section class="sec" id="radar">
+      <div class="sec-h">
+        <div class="kick"><span class="bar">//</span> Rebid radar</div>
+        <h2>Every contract, sorted by how soon it&rsquo;s up for bid</h2>
+        <p>The contractors who win government work start preparing months before the solicitation posts. Here&rsquo;s the timeline &mdash; and the incumbent you&rsquo;d be bidding against.</p>
+      </div>
+      <div class="ledger">
+        <div class="ledger-h"><span class="live"><b></b>&nbsp;Montgomery County, MD &middot; open contract data</span><span id="radar-ts"></span></div>
+        <div class="tscroll"><table>
+          <thead><tr><th>Contract</th><th>Agency</th><th>Current incumbent</th><th class="r">Rebid window</th></tr></thead>
+          <tbody id="radar-rows"></tbody>
+        </table></div>
+      </div>
+      <div class="note">SAMPLE SHOWN &middot; full radar covers every DMV jurisdiction tracked, refreshed continuously</div>
+    </section>
+
+    <!-- INTEL -->
+    <section class="sec" id="intel">
+      <div class="sec-h">
+        <div class="kick"><span class="bar">//</span> Incumbent intel</div>
+        <h2>Walk in knowing the number to beat</h2>
+        <p>We map official Virginia procurement records to the incumbent cleaner at each agency and the scale they operate at. Anchor your bid to what the agency really spends &mdash; not a guess.</p>
+      </div>
+      <div class="ledger">
+        <div class="ledger-h"><span>VA eVA records &middot; NIGP 91039 janitorial/custodial services</span><span>2023&ndash;24</span></div>
+        <div class="tscroll"><table>
+          <thead><tr><th>Agency</th><th>Incumbent cleaner</th><th class="r">Public spend</th></tr></thead>
+          <tbody id="intel-rows"></tbody>
+        </table></div>
+      </div>
+      <div class="note">Figures are aggregated public purchase-order records &mdash; a strong estimate of contract scale, not the exact award value.</div>
+    </section>
+
+    <!-- WHY -->
+    <section class="sec">
+      <div class="sec-h"><div class="kick"><span class="bar">//</span> Why it wins you work</div></div>
+      <div class="cols">
+        <div class="col"><div class="kick">Timing</div><h3>Never miss a rebid</h3><p>Contracts you can prepare for months ahead &mdash; the exact rebid window, not a surprise notice with ten days left on the clock.</p></div>
+        <div class="col"><div class="kick">Position</div><h3>Know the incumbent</h3><p>Who holds each agency&rsquo;s contract today and the scale they run &mdash; so your proposal is built to unseat a real competitor.</p></div>
+        <div class="col"><div class="kick">Price</div><h3>Stop guessing your number</h3><p>Anchor pricing to what the agency actually spends on cleaning. The difference between a wasted bid and a won one.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- BUY -->
+  <section class="buy" id="buy"><div class="bd">
+    <div class="buy-card">
+      <div>
+        <div class="kick">Founding access &middot; limited seats</div>
+        <div class="amt"><span class="big">$49</span><span class="per">/ month &middot; locked for founders</span></div>
+        <h2>Get the full radar</h2>
+        <ul class="feat">
+          <li>Every tracked DMV custodial contract &amp; its rebid window</li>
+          <li>Incumbent + spend intel across 50+ Virginia agencies</li>
+          <li>Weekly &ldquo;what&rsquo;s coming up in your area&rdquo; brief</li>
+          <li>New jurisdictions added as we expand &mdash; your price never rises</li>
+        </ul>
+      </div>
+      <div>
+        <form id="signup" novalidate>
+          <label for="email">Reserve your founding seat</label>
+          <input id="email" type="email" required placeholder="you@yourcleaningco.com" autocomplete="email" />
+          <button class="btn onpanel" type="submit">Get access</button>
+          <div class="fnote">No card charged today. We onboard founders in cohorts and email you to set up access. Unsubscribe anytime.</div>
+        </form>
+        <div class="done" id="done"><strong>You&rsquo;re on the founders list.</strong><br>We&rsquo;ll email you shortly to get you into the radar.</div>
+      </div>
+    </div>
+  </div></section>
+
+  <footer><div class="bd">
+    <div class="wm" style="font-size:12.5px"><span class="glyph"></span> RECOMPETE</div>
+    <div class="disc" style="color:var(--muted);letter-spacing:.02em"><strong style="color:var(--ink)">re&middot;com&middot;pete</strong> &nbsp;/ˌrē-kəm-ˈpēt/ &nbsp;<em>n.</em> &mdash; when a government contract reaches the end of its term and is opened for bidding again. The moment you win, or lose, the work.</div>
+    <div class="disc">Independent research tool. Data compiled from official public open-data sources: the Virginia eVA procurement dataset (data.virginia.gov) and Montgomery County, MD contract records (Socrata). Spend figures are aggregated public purchase-order records estimating contract scale; they are not exact award amounts. Not affiliated with any government agency or listed vendor. We provide intelligence, not bid-writing, and make no guarantee of contract award.</div>
+  </div></footer>
+</div>
+
+<script>
+  const RADAR=[
+    {c:"Custodial services — Zones 1 & 6",a:"VA Dept. of General Services",inc:"J&H Maintenance Service Corp",exp:"2026-08-31"},
+    {c:"Custodial services — Zone 3",a:"VA Dept. of General Services",inc:"P2 Cleaning Services LLC",exp:"2026-08-31"},
+    {c:"Custodial services — Zones 2 & 7",a:"VA Dept. of General Services",inc:"Integrity National Corp",exp:"2026-08-31"},
+    {c:"Custodial services — Zones 4 & 5",a:"VA Dept. of General Services",inc:"MCNA LLC",exp:"2026-08-31"},
+    {c:"Parking garage cleaning services",a:"Dept. of Transportation",inc:"Vitavanti LLC (Sweeper's Bubbles)",exp:"2026-08-30"},
+    {c:"Custodial services — swimming pools",a:"Dept. of Recreation",inc:"Gov Services Inc",exp:"2026-09-01"},
+    {c:"Custodial floor equipment — parts & service",a:"Dept. of General Services",inc:"S. Freedman & Sons, Inc.",exp:"2026-11-03"},
+    {c:"Facility cleaning, inspection & repair",a:"Fire & Rescue Services",inc:"Maryland Fire Equipment Corp.",exp:"2026-12-17"}
+  ];
+  const INTEL=[
+    {a:"Northern Virginia Community College",v:"Golden Gate Service Inc",t:10282945},
+    {a:"George Mason University",v:"The Budd Group",t:6583570},
+    {a:"University of Mary Washington",v:"Professional Building Maintenance",t:6043584},
+    {a:"VA Dept. of General Services",v:"ServiceMaster Services",t:5525570},
+    {a:"Dept. of Military Affairs",v:"Jan-Pro of Richmond–Charlotte",t:3009682},
+    {a:"Longwood University",v:"The Budd Group",t:2489238,lock:true},
+    {a:"Virginia Tech",v:"UG2 LLC",t:2341110,lock:true}
+  ];
+  const dTo=iso=>Math.round((new Date(iso+"T00:00:00")-new Date())/864e5);
+  const money=n=>"$"+(n>=1e6?(n/1e6).toFixed(1)+"M":Math.round(n/1e3)+"K");
+  const md=iso=>new Date(iso+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  const now=new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+
+  document.getElementById("feed-ts").textContent=now;
+  document.getElementById("radar-ts").textContent="as of "+new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+
+  // terminal feed: 5 soonest
+  document.getElementById("feed").innerHTML=RADAR.slice(0,5).map(r=>{
+    const d=dTo(r.exp);const cool=d>90?" cool":"";
+    return `<div class="feedrow"><span class="t">${md(r.exp)}</span><span class="m"><em>${r.c.replace(/ —.*/,'')}</em> · ${r.inc}</span><span class="d${cool}">${d<=0?"OPEN":"T-"+d+"d"}</span></div>`;
+  }).join("");
+
+  document.getElementById("radar-rows").innerHTML=RADAR.map(r=>{
+    const d=dTo(r.exp);const cls=d<=60?"hot":"warm";
+    return `<tr><td><div class="nm">${r.c}</div></td><td>${r.a}</td><td>${r.inc}</td>
+      <td class="r"><span class="cd ${cls}">${d<=0?"open now":"~"+d+" days"}</span><div class="sub">${md(r.exp)}</div></td></tr>`;
+  }).join("");
+
+  document.getElementById("intel-rows").innerHTML=INTEL.map(r=>{
+    const b=r.lock?' class="blur"':'';
+    return `<tr><td class="nm">${r.a}</td><td${b}>${r.v}</td><td class="r val m"${b}>${money(r.t)}</td></tr>`;
+  }).join("")+`<tr><td colspan="3" class="more">+ 229 more agency×incumbent relationships in the full dataset</td></tr>`;
+
+  // form: POSTs to Formspree. (In the Artifact preview the request is CSP-blocked
+  // and the catch still confirms inline; on the live github.io host it submits for real.)
+  const ENDPOINT="https://formspree.io/f/mrenyqen";
+  document.getElementById("signup").addEventListener("submit",async e=>{
+    e.preventDefault();
+    const em=document.getElementById("email").value.trim();
+    if(!em||!em.includes("@")){document.getElementById("email").focus();return;}
+    try{await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({email:em,source:"recompete-dmv-landing"})});}catch(_){}
+    document.getElementById("signup").style.display="none";
+    document.getElementById("done").classList.add("show");
+  });
+
+  // --- tasteful motion: native, dependency-free, restrained (heavier libs reserved for the React product app) ---
+  const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!RM){
+    // headline stats count up
+    document.querySelectorAll(".strip .n").forEach(el=>{
+      const raw=el.textContent.trim(),m=raw.match(/^(\D*)([\d.]+)(\D*)$/);if(!m)return;
+      const pre=m[1],target=parseFloat(m[2]),suf=m[3],dec=(m[2].split(".")[1]||"").length;let t0=null;const dur=1200;
+      const tick=ts=>{t0=t0||ts;const p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);
+        el.textContent=pre+(target*e).toFixed(dec)+suf;if(p<1)requestAnimationFrame(tick);else el.textContent=raw;};
+      requestAnimationFrame(tick);
+    });
+    // reveal sections as they scroll into view
+    const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}}),
+      {threshold:.12,rootMargin:"0px 0px -8% 0px"});
+    document.querySelectorAll(".sec, .buy-card").forEach(el=>{el.classList.add("reveal");io.observe(el);});
+    // stagger the live feed rows in
+    const rows=document.querySelectorAll("#feed .feedrow");
+    rows.forEach((r,i)=>{r.style.opacity="0";r.style.transform="translateX(-8px)";
+      r.style.transition="opacity .45s ease,transform .45s ease";r.style.transitionDelay=(140+i*90)+"ms";});
+    requestAnimationFrame(()=>rows.forEach(r=>{r.style.opacity="1";r.style.transform="none";}));
+  }
+</script>
+
+</body>
+</html>
