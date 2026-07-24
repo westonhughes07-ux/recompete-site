@@ -223,10 +223,10 @@
 
     <!-- STATS -->
     <div class="strip">
-      <div class="c"><div class="n">22</div><div class="k">DMV custodial contracts on the rebid radar</div></div>
-      <div class="c"><div class="n a">7</div><div class="k">up for rebid within 120 days</div></div>
-      <div class="c"><div class="n">50</div><div class="k">Virginia agencies mapped to their incumbent</div></div>
-      <div class="c"><div class="n m">$81.8M</div><div class="k">janitorial spend mapped (2023&ndash;24)</div></div>
+      <div class="c"><div class="n" id="st-rebid">22</div><div class="k">DMV custodial contracts on the rebid radar</div></div>
+      <div class="c"><div class="n a" id="st-120">7</div><div class="k">up for rebid within 120 days</div></div>
+      <div class="c"><div class="n" id="st-agencies">50</div><div class="k">Virginia agencies mapped to their incumbent</div></div>
+      <div class="c"><div class="n m" id="st-spend">$37.8M</div><div class="k" id="st-spend-k">annual janitorial spend mapped (FY19&ndash;24)</div></div>
     </div>
 
     <!-- RADAR -->
@@ -252,13 +252,13 @@
         <p>We map official Virginia procurement records to the incumbent cleaner at each agency and the scale they operate at. Anchor your bid to what the agency really spends &mdash; not a guess.</p>
       </div>
       <div class="ledger">
-        <div class="ledger-h"><span>VA eVA records &middot; NIGP 91039 janitorial/custodial services</span><span>2023&ndash;24</span></div>
+        <div class="ledger-h"><span>VA eVA records &middot; NIGP 91039 janitorial/custodial services</span><span id="intel-yr">FY2019&ndash;24</span></div>
         <div class="tscroll"><table>
-          <thead><tr><th>Agency</th><th>Incumbent cleaner</th><th class="r">Public spend</th></tr></thead>
+          <thead><tr><th>Agency</th><th>Incumbent cleaner</th><th>Tenure</th><th class="r">Annual spend</th></tr></thead>
           <tbody id="intel-rows"></tbody>
         </table></div>
       </div>
-      <div class="note">Figures are aggregated public purchase-order records &mdash; a strong estimate of contract scale, not the exact award value.</div>
+      <div class="note">Incumbent = the vendor with the largest janitorial spend in the agency&rsquo;s most recent year on record; tenure counts consecutive years they&rsquo;ve held it. Figures are aggregated public purchase-order records &mdash; a strong estimate of annual contract scale, not the exact award value.</div>
     </section>
 
     <!-- WHY -->
@@ -305,26 +305,36 @@
   </div></footer>
 </div>
 
+<script>window.__RD__={"radar":[{"c":"Parking Garage - Miscellaneous Cleaning Services","a":"Montgomery Co. — Transportation","inc":"Vitavanti LLC d/b/a Sweeper's Bubbles","exp":"2026-08-30"},{"c":"Custodial services – Zone 3","a":"Montgomery Co. — Gen. Services","inc":"P2 Cleaning Services LLC","exp":"2026-08-31"},{"c":"Custodial services – Zones 1 and 6","a":"Montgomery Co. — Gen. Services","inc":"J&H Maintenance Service Corp","exp":"2026-08-31"},{"c":"Custodial services Zones 4 & 5","a":"Montgomery Co. — Gen. Services","inc":"MCNA LLC","exp":"2026-08-31"},{"c":"Custodial services – Zones  2 and 7","a":"Montgomery Co. — Gen. Services","inc":"Integrity National Corp","exp":"2026-08-31"},{"c":"Custodial Services for Swimming Pools","a":"Montgomery Co. — Recreation","inc":"Gov Services Inc","exp":"2026-09-01"},{"c":"Custodial Floor Cleaning Equipment Parts & Service","a":"Montgomery Co. — Gen. Services","inc":"S. Freedman & Sons, Inc","exp":"2026-11-03"},{"c":"Heavy Duty Residential Cleaning Services for Seniors and Disabled","a":"Montgomery Co. — Health & Human Svcs","inc":"Kariah Kariahhealthcare Solutions, LLC","exp":"2026-12-22"},{"c":"Provides heavy duty residential cleaning services for seniors and the disabled","a":"Montgomery Co. — Health & Human Svcs","inc":"M&G Staffing LLC","exp":"2027-05-18"},{"c":"routine custodial services for fuel sites","a":"Montgomery Co. — Gen. Services","inc":"The Arc Montgomery County, Inc","exp":"2027-06-30"},{"c":"custodial services for the MC Correctional Facility","a":"Montgomery Co. — Correction & Rehabilitation","inc":"The Arc Montgomery County, Inc","exp":"2027-06-30"},{"c":"Dumping and cleaning services for the Department of Health and Human Services Mobile Health Clinic Vehicle","a":"Montgomery Co. — Health & Human Svcs","inc":"Kaplan Transportation, Inc","exp":"2027-06-30"},{"c":"AP1-10 Custodial Cleaning Services – Performed by Vocational firms  (Disability Employment Training Services)","a":"Montgomery Co. — Gen. Services","inc":"The Arc Montgomery County, Inc","exp":"2027-06-30"},{"c":"Heavy Duty Residential Cleaning Services for Seniors and Disabled","a":"Montgomery Co. — Health & Human Svcs","inc":"DMV Decon A, LLC","exp":"2027-10-19"}],"intel":[{"a":"Northern Virginia Community College","v":"Golden Gate Service Inc","t":7340669.22,"ten":6,"yr":"2024","lock":false},{"a":"Department of General Services","v":"ServiceMaster Services","t":2687660.46,"ten":3,"yr":"2024","lock":false},{"a":"Department of Military Affairs","v":"Jan-Pro of Richmond-Charlotte","t":2608725.5,"ten":6,"yr":"2024","lock":false},{"a":"Longwood University","v":"The Budd Group","t":2489237.97,"ten":5,"yr":"2024","lock":false},{"a":"Virginia Tech","v":"UG2 LLC","t":2341110.39,"ten":1,"yr":"2024","lock":false},{"a":"George Mason University","v":"The Budd Group","t":1700000.0,"ten":2,"yr":"2024","lock":false},{"a":"Virginia Peninsula Community College","v":"Thompson Services Inc","t":1392390.54,"ten":2,"yr":"2024","lock":false},{"a":"Radford University","v":"Sci-Tech Carpet Cleaning Inc","t":1118201.39,"ten":4,"yr":"2024","lock":false},{"a":"University of Virginia","v":"Building Maintenance Service LLC","t":1096422.58,"ten":4,"yr":"2024","lock":false},{"a":"Virginia Western Community College","v":"The Budd Group","t":1093945.36,"ten":4,"yr":"2024","lock":false},{"a":"Virginia Department of Transportation","v":"Mister Janitor","t":1076680.31,"ten":2,"yr":"2024","lock":true},{"a":"Brightpoint Community College","v":"Goodwill of Central and Coastal Virginia","t":1032784.1,"ten":2,"yr":"2024","lock":true}],"stats":{"rebid_total":14,"within120":7,"va_agencies":50,"annual_mapped":37813549.42,"intel_more":38,"years":["2024","2023","2022","2021","2020","2019"]},"generated":"2026-07-24T05:32:56+00:00"}</script>
 <script>
-  const RADAR=[
-    {c:"Custodial services — Zones 1 & 6",a:"Montgomery Co. — Gen. Services",inc:"J&H Maintenance Service Corp",exp:"2026-08-31"},
-    {c:"Custodial services — Zone 3",a:"Montgomery Co. — Gen. Services",inc:"P2 Cleaning Services LLC",exp:"2026-08-31"},
-    {c:"Custodial services — Zones 2 & 7",a:"Montgomery Co. — Gen. Services",inc:"Integrity National Corp",exp:"2026-08-31"},
-    {c:"Custodial services — Zones 4 & 5",a:"Montgomery Co. — Gen. Services",inc:"MCNA LLC",exp:"2026-08-31"},
-    {c:"Parking garage cleaning services",a:"Montgomery Co. — Transportation",inc:"Vitavanti LLC (Sweeper's Bubbles)",exp:"2026-08-30"},
-    {c:"Custodial services — swimming pools",a:"Montgomery Co. — Recreation",inc:"Gov Services Inc",exp:"2026-09-01"},
-    {c:"Custodial floor equipment — parts & service",a:"Montgomery Co. — Gen. Services",inc:"S. Freedman & Sons, Inc.",exp:"2026-11-03"},
-    {c:"Facility cleaning, inspection & repair",a:"Montgomery Co. — Fire & Rescue",inc:"Maryland Fire Equipment Corp.",exp:"2026-12-17"}
+  // Live data is injected by build_site.py as window.__RD__ (derived from the intel JSON).
+  // The arrays below are only a fallback snapshot for opening this file directly (preview);
+  // the deployed site always renders the injected, freshly-generated data.
+  const D=window.__RD__||null;
+  const RADAR=(D&&D.radar)||[
+    {c:"Parking Garage - Miscellaneous Cleaning Services",a:"Montgomery Co. — Transportation",inc:"Vitavanti LLC d/b/a Sweeper's Bubbles",exp:"2026-08-30"},
+    {c:"Custodial services – Zone 3",a:"Montgomery Co. — Gen. Services",inc:"P2 Cleaning Services LLC",exp:"2026-08-31"},
+    {c:"Custodial services – Zones 1 and 6",a:"Montgomery Co. — Gen. Services",inc:"J&H Maintenance Service Corp",exp:"2026-08-31"},
+    {c:"Custodial services Zones 4 & 5",a:"Montgomery Co. — Gen. Services",inc:"MCNA LLC",exp:"2026-08-31"},
+    {c:"Custodial services – Zones 2 and 7",a:"Montgomery Co. — Gen. Services",inc:"Integrity National Corp",exp:"2026-08-31"},
+    {c:"Custodial Services for Swimming Pools",a:"Montgomery Co. — Recreation",inc:"Gov Services Inc",exp:"2026-09-01"},
+    {c:"Custodial Floor Cleaning Equipment Parts & Service",a:"Montgomery Co. — Gen. Services",inc:"S. Freedman & Sons, Inc.",exp:"2026-11-03"}
   ];
-  const INTEL=[
-    {a:"Northern Virginia Community College",v:"Golden Gate Service Inc",t:10282945},
-    {a:"George Mason University",v:"The Budd Group",t:6583570},
-    {a:"University of Mary Washington",v:"Professional Building Maintenance",t:6043584},
-    {a:"Montgomery Co. — Gen. Services",v:"ServiceMaster Services",t:5525570},
-    {a:"Dept. of Military Affairs",v:"Jan-Pro of Richmond–Charlotte",t:3009682},
-    {a:"Longwood University",v:"The Budd Group",t:2489238,lock:true},
-    {a:"Virginia Tech",v:"UG2 LLC",t:2341110,lock:true}
+  const INTEL=(D&&D.intel)||[
+    {a:"Northern Virginia Community College",v:"Golden Gate Service Inc",t:7340669,ten:6,yr:"2024"},
+    {a:"Department of General Services",v:"ServiceMaster Services",t:2687660,ten:3,yr:"2024"},
+    {a:"Department of Military Affairs",v:"Jan-Pro of Richmond-Charlotte",t:2608726,ten:6,yr:"2024"},
+    {a:"Longwood University",v:"The Budd Group",t:2489238,ten:5,yr:"2024"},
+    {a:"Virginia Tech",v:"UG2 LLC",t:2341110,ten:1,yr:"2024"},
+    {a:"George Mason University",v:"The Budd Group",t:1700000,ten:2,yr:"2024"},
+    {a:"Virginia Peninsula Community College",v:"Thompson Services Inc",t:1392391,ten:2,yr:"2024"},
+    {a:"Radford University",v:"Sci-Tech Carpet Cleaning",t:1118201,ten:4,yr:"2024"},
+    {a:"University of Virginia",v:"Building Maintenance Service",t:1096423,ten:4,yr:"2024"},
+    {a:"Virginia Western Community College",v:"The Budd Group",t:1093945,ten:4,yr:"2024"},
+    {a:"Virginia Department of Transportation",v:"Mister Janitor",t:1076680,ten:2,yr:"2024",lock:true},
+    {a:"Brightpoint Community College",v:"Goodwill of Central Virginia",t:1032784,ten:2,yr:"2024",lock:true}
   ];
+  const STATS=(D&&D.stats)||{rebid_total:22,within120:7,va_agencies:50,annual_mapped:37813549,intel_more:38};
   const dTo=iso=>Math.round((new Date(iso+"T00:00:00")-new Date())/864e5);
   const money=n=>"$"+(n>=1e6?(n/1e6).toFixed(1)+"M":Math.round(n/1e3)+"K");
   const md=iso=>new Date(iso+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
@@ -333,10 +343,12 @@
   document.getElementById("feed-ts").textContent=now;
   document.getElementById("radar-ts").textContent="as of "+new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
 
+  const shortTitle=s=>s.replace(/\s*[–—-]\s.*$/,'').trim();
+
   // terminal feed: 5 soonest
   document.getElementById("feed").innerHTML=RADAR.slice(0,5).map(r=>{
     const d=dTo(r.exp);const cool=d>90?" cool":"";
-    return `<div class="feedrow"><span class="t">${md(r.exp)}</span><span class="m"><em>${r.c.replace(/ —.*/,'')}</em> · ${r.inc}</span><span class="d${cool}">${d<=0?"OPEN":"T-"+d+"d"}</span></div>`;
+    return `<div class="feedrow"><span class="t">${md(r.exp)}</span><span class="m"><em>${shortTitle(r.c)}</em> · ${r.inc}</span><span class="d${cool}">${d<=0?"OPEN":"T-"+d+"d"}</span></div>`;
   }).join("");
 
   document.getElementById("radar-rows").innerHTML=RADAR.map(r=>{
@@ -345,10 +357,21 @@
       <td class="r"><span class="cd ${cls}">${d<=0?"open now":"~"+d+" days"}</span><div class="sub">${md(r.exp)}</div></td></tr>`;
   }).join("");
 
+  const tenure=r=>r.ten>=2?`held ${r.ten} yrs`:(r.ten===1?`new · FY${(r.yr||"").slice(2)}`:"—");
+  const moreN=(STATS&&STATS.intel_more)||0;
   document.getElementById("intel-rows").innerHTML=INTEL.map(r=>{
     const b=r.lock?' class="blur"':'';
-    return `<tr><td class="nm">${r.a}</td><td${b}>${r.v}</td><td class="r val m"${b}>${money(r.t)}</td></tr>`;
-  }).join("")+`<tr><td colspan="3" class="more">+ 229 more agency×incumbent relationships in the full dataset</td></tr>`;
+    return `<tr><td class="nm">${r.a}</td><td${b}>${r.v}</td><td class="sub" style="font-family:var(--mono)">${tenure(r)}</td><td class="r val m"${b}>${money(r.t)}</td></tr>`;
+  }).join("")+(moreN?`<tr><td colspan="4" class="more">+ ${moreN} more Virginia agencies mapped to their incumbent in the full dataset</td></tr>`:"");
+
+  // headline stats — from the real injected data
+  const setN=(id,v)=>{const el=document.getElementById(id);if(el&&v!=null)el.textContent=v;};
+  if(STATS){
+    setN("st-rebid",STATS.rebid_total);
+    setN("st-120",STATS.within120);
+    setN("st-agencies",STATS.va_agencies);
+    setN("st-spend",money(STATS.annual_mapped));
+  }
 
   // form: POSTs to Formspree. (In the Artifact preview the request is CSP-blocked
   // and the catch still confirms inline; on the live github.io host it submits for real.)
